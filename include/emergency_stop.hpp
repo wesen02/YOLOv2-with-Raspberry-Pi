@@ -1,9 +1,6 @@
-
 #include <wiringPi.h>
 #include <sys/time.h> // gettimeofday
 #include <unistd.h>   // sleep/usleep
-
-#include <iostream>
 
 using namespace std;
 
@@ -30,14 +27,10 @@ public:
         digitalWrite(TRIG, HIGH);
         delayMicroseconds(10);
         digitalWrite(TRIG, LOW);
-        // usleep(10);
-        // digitalWrite(TRIG, LOW);
 
         if (waitValue(0))
         {
             double pulseStart = getTime();
-
-            // std::cout << "pulseStart" << pulseStart << "\n";
 
             if (waitValue(1))
             {
@@ -45,14 +38,10 @@ public:
 
                 double duration = pulseEnd - pulseStart;
                 double distance = duration * coefficient;
-                // std::cout << "duration" << duration << "\n";
 
                 return distance;
             }
         }
-
-        // std::cout << "Measurement error!"
-        //           << "\n";
 
         return 0.0 / 0.0;
     }
